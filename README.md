@@ -8,7 +8,32 @@
 | --- | --- |
 | `change-summary` | 根据真实代码差异生成 PR 描述、提交说明或交接摘要 |
 
-## 在 Codex / VS Code Copilot 中使用
+## 用 npx 安装
+
+需要 Node.js >= 22.20。
+
+```bash
+npx skills add sjd199625/team-skills -g --skill change-summary
+```
+
+`-g` 安装到用户级，所有项目可用；去掉 `-g` 只安装到当前项目。默认安装到通用目录 `~/.agents/skills/`，Codex、VS Code Copilot 等会读取它。
+
+Claude Code 使用：
+
+```bash
+npx skills add sjd199625/team-skills -g --skill change-summary -a claude-code
+```
+
+如果 `npx` 报 `fs/promises` 或 `glob` 相关错误，说明 Node 版本太低。切到 Node 22.20+ 后重试：
+
+```bash
+nvm use 24
+npx skills add sjd199625/team-skills -g --skill change-summary
+```
+
+安装后新开一个会话，直接说“用 change-summary 总结当前改动”。
+
+## 手动使用（不通过 npx）
 
 用 Codex 或 VS Code Copilot 打开本目录即可。它们会扫描项目内的 `.agents/skills/`。
 
