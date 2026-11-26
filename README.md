@@ -29,7 +29,7 @@ Windows 可使用目录联接，或直接复制目录。
 
 ## 给其他 Agent 或大模型使用
 
-让 Agent 读取 `change-summary/SKILL.md`，或把正文加入系统提示/项目规则。自动发现、读取附件和执行脚本的能力取决于具体宿主。
+让 Agent 读取 `.agents/skills/change-summary/SKILL.md`，或把正文加入系统提示/项目规则。自动发现、读取附件和执行脚本的能力取决于具体宿主。
 
 ## 新增技能
 
