@@ -25,7 +25,7 @@ def write_file(path: Path, content: str, force: bool) -> None:
 
 def package_json() -> str:
     data = {
-        "name": "iot-e2e",
+        "name": "frontend-e2e",
         "private": True,
         "scripts": {
             "test": "playwright test",

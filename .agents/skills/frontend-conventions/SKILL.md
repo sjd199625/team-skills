@@ -1,5 +1,5 @@
 ---
-name: iot-frontend-conventions
+name: frontend-conventions
 description: 当用户说“按项目现有写法/代码风格改”“新增或修改移动 H5、PC 后台、服务端渲染页面”时使用；先识别角色，再沿用该角色的现有实现。其他项目不要直接套用。
 ---
 
@@ -71,8 +71,8 @@ description: 当用户说“按项目现有写法/代码风格改”“新增或
 
 ## 相关工作流
 
-- `iot-feature-workflow`：从需求到联调的阶段编排。
-- `iot-requirement-design`：需求和技术设计。
-- `iot-frontend-delivery`：按设计实现页面。
-- `iot-e2e-delivery`：页面用例和测试报告。
-- `iot-api-integration`：接口联调和后端业务/数据来源分析。
+- `frontend-workflow`：从需求到联调的阶段编排。
+- `frontend-requirement-design`：需求和技术设计。
+- `frontend-page-delivery`：按设计实现页面。
+- `frontend-e2e-delivery`：页面用例和测试报告。
+- `frontend-api-integration`：接口联调和后端业务/数据来源分析。

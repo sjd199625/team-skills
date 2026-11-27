@@ -10,6 +10,9 @@ import sys
 from pathlib import Path
 
 
+SKILL_DIR = Path(__file__).resolve().parents[1]
+
+
 def run(*args: str, cwd: Path) -> str:
     try:
         proc = subprocess.run(args, cwd=cwd, capture_output=True, text=True, check=False)
@@ -78,7 +81,8 @@ def main() -> None:
         print("\n".join(f"  {path.relative_to(repo)}" if path.is_relative_to(repo) else f"  {path}" for path in files) or "  -")
 
     print("read_next:")
-    print("  references/project-profile.md")
+    profile = SKILL_DIR / "references" / "project-profile.local.md"
+    print(f"  {'references/project-profile.local.md' if profile.exists() else 'references/project-profile.md'}")
     if args.feature:
         print(f"  docs/{args.feature}/01-frontend-tech-design.md")
         print(f"  docs/{args.feature}/workflow-state.yaml")

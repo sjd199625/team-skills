@@ -1,5 +1,5 @@
 ---
-name: iot-requirement-design
+name: frontend-requirement-design
 description: 当用户说“只生成前端技术文档”“先出技术方案”“读这个飞书需求”“把需求拆成页面和测试范围”时使用；读取飞书需求或需求说明，为 `mobile-h5`、`desktop-admin`、`servicer-ssr` 角色生成包含页面/路由/组件、接口假设和测试范围的技术文档。不直接写业务代码。
 ---
 
@@ -54,7 +54,7 @@ python3 <skill-dir>/scripts/fetch_feishu.py \
 
 ### 2. 识别项目和改动面
 
-先读目标项目的 `iot-frontend-conventions`，再读最近的同类页面：
+先读目标项目的 `frontend-conventions`，再读最近的同类页面：
 
 - PC 后台：`desktop-admin`
 - 移动 H5：`mobile-h5`
@@ -88,7 +88,7 @@ python3 <skill-dir>/scripts/fetch_feishu.py \
 
 接口字段没有确认时标 `待联调`，不要把假设写成契约。
 
-测试用例在页面完成后由 `iot-e2e-delivery` 写入 `02-test-cases-results.md`，不再单独生成测试计划。
+测试用例在页面完成后由 `frontend-e2e-delivery` 写入 `02-test-cases-results.md`，不再单独生成测试计划。
 
 ### 4. 设计评审
 
@@ -116,7 +116,7 @@ python3 <skill-dir>/scripts/fetch_feishu.py \
 - 不把未确认接口写成已确认契约。
 - 不把另一个项目的组件或状态写法当成本项目方案。
 - 不跳过测试范围，页面方案和验证方案一起交付。
-- 用户确认前不进入 `iot-frontend-delivery`。
+- 用户确认前不进入 `frontend-page-delivery`。
 - 文档中的代码路径必须真实存在，或明确标为“拟新建”。
 
 模板见 [frontend-tech-design-template.md](references/frontend-tech-design-template.md)。

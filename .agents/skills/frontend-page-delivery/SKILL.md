@@ -1,16 +1,16 @@
 ---
-name: iot-frontend-delivery
+name: frontend-page-delivery
 description: 当用户说“按这份技术文档开发页面”“把页面实现出来”“补组件和路由”“改这个前端功能”时使用；根据已确认的前端技术文档，在 `mobile-h5`、`desktop-admin` 或 `servicer-ssr` 中实现页面、组件、路由、请求和样式；不负责需求澄清或后端实现。
 ---
 
 # 前端页面交付
 
-输入是已确认的前端技术文档，不是一句“帮我写个页面”。如果设计文档缺失，先用 `iot-requirement-design`；如果只是接口字段没定，先用 `iot-api-integration` 补契约。
+输入是已确认的前端技术文档，不是一句“帮我写个页面”。如果设计文档缺失，先用 `frontend-requirement-design`；如果只是接口字段没定，先用 `frontend-api-integration` 补契约。
 
 ## 开始前
 
-1. 读 `iot-feature-workflow/references/project-profile.md` 和 `docs/<feature>/01-frontend-tech-design.md`；只有当前阶段需要时，才读 `02` 或可选的 `03`。
-2. 读取当前角色的 `iot-frontend-conventions/references/<role>.md`，确认格式、组件和验证方式。
+1. 读 `frontend-workflow/references/project-profile.local.md`，不存在时读模板 `project-profile.md`；再读 `docs/<feature>/01-frontend-tech-design.md`。只有当前阶段需要时，才读 `02` 或可选的 `03`。
+2. 读取当前角色的 `frontend-conventions/references/<role>.md`，确认格式、组件和验证方式。
 3. 读最近的同类页面、页面内组件、接口模块和样式文件。
 4. 记录当前分支和工作区状态；不要清理或覆盖无关修改。
 5. 把文档中的页面/路由/组件映射到真实文件；不存在的标“拟新建”。
@@ -99,13 +99,13 @@ npm run hobber-build
 npm run build
 ```
 
-命令以仓库真实脚本为准；如果项目 README 要求特定 Node 版本，先切换再跑。构建通过不等于页面测试通过，页面验收交给 `iot-e2e-delivery`。
+命令以仓库真实脚本为准；如果项目 README 要求特定 Node 版本，先切换再跑。构建通过不等于页面测试通过，页面验收交给 `frontend-e2e-delivery`。
 
 ## 交接
 
-- 需要生成/执行页面测试：交给 `iot-e2e-delivery`。
-- 接口字段没定或需要读后端：交给 `iot-api-integration`。
-- 需要从需求重新开始：回到 `iot-requirement-design`。
-- 需要最终摘要：交给 `iot-feature-workflow` 的总结阶段。
+- 需要生成/执行页面测试：交给 `frontend-e2e-delivery`。
+- 接口字段没定或需要读后端：交给 `frontend-api-integration`。
+- 需要从需求重新开始：回到 `frontend-requirement-design`。
+- 需要最终摘要：交给 `frontend-workflow` 的总结阶段。
 
 更细的实现检查见 [delivery-checklist.md](references/delivery-checklist.md)。

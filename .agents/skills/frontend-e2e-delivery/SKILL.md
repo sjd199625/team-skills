@@ -1,11 +1,11 @@
 ---
-name: iot-e2e-delivery
+name: frontend-e2e-delivery
 description: 当用户说“测试这个页面”“生成并执行 case”“跑页面验收”“做回归”“验证这些入口”时使用；为 `mobile-h5`、`desktop-admin` 和 `servicer-ssr` 角色生成可追溯的页面测试用例并执行浏览器验收/自动化测试，用例和真实结果统一输出到 `02-test-cases-results.md`；不修改业务代码，不虚构测试结果。
 ---
 
 # 页面测试交付
 
-测试 skill 只做三件事：生成可追溯的 case、真实执行、写真实报告。不要在这里修业务代码；失败项回到 `iot-frontend-delivery`。
+测试 skill 只做三件事：生成可追溯的 case、真实执行、写真实报告。不要在这里修业务代码；失败项回到 `frontend-page-delivery`。
 
 ## 第 0 步：确认真实入口
 
@@ -17,14 +17,14 @@ description: 当用户说“测试这个页面”“生成并执行 case”“�
 - 前端是否依赖后端分支或联调数据；
 - 本轮是冒烟验收还是一轮回归。
 
-页面打不开、没有测试数据或没有登录态时，先停下来补条件；不要写“预期通过”。已知测试入口、登录方式和 mock 开关先读 `iot-feature-workflow/references/project-profile.md`，不要每轮重新猜。
+页面打不开、没有测试数据或没有登录态时，先停下来补条件；不要写“预期通过”。已知测试入口、登录方式和 mock 开关先读 `frontend-workflow/references/project-profile.local.md`，不存在时读模板 `project-profile.md`，不要每轮重新猜。
 
 ### 登录态获取顺序
 
 1. 优先使用 `stable-chrome` 接管用户已经登录的真实 Chrome。
 2. 用户没有登录时，明确请用户登录一次；不要用匿名窗口硬登。
 3. 登录后先验证一个真实接口返回，再开始写用例。
-4. 仍然拿不到登录态时，把相关项目/入口标为“阻塞”，写清原因和下一步；不能因为登录失败跳过整个 PC 或门店入口。
+4. 仍然拿不到登录态时，把相关项目/入口标为“阻塞”，写清原因和下一步；不能因为登录失败跳过整个 PC 或核心入口。
 
 ### 覆盖范围先定死
 
@@ -168,4 +168,4 @@ python3 <skill-dir>/scripts/scaffold_playwright.py \
 - 不把构建通过、接口 200 或截图一张当成完整页面测试。
 - 不用随机假数据断言具体业务结果。
 
-完成后把报告交给 `iot-feature-workflow` 继续联调或总结。
+完成后把报告交给 `frontend-workflow` 继续联调或总结。

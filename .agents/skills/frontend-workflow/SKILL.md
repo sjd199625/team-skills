@@ -1,9 +1,9 @@
 ---
-name: iot-feature-workflow
+name: frontend-workflow
 description: 当用户要把一个移动 H5、PC 后台或服务端渲染前端需求从飞书文档/需求说明一路做到技术文档、页面开发、测试和联调时使用；也用于用户说“按需求开发这个页面”“把需求跑完”“从文档到页面和测试”“端到端交付”。默认只输出前端技术设计、测试用例与结果，以及可选的后端业务文档。
 ---
 
-# IoT 需求交付编排
+# 前端需求交付编排
 
 这是入口，不重复各阶段的执行细节。先判断当前处于哪一步，再调用对应的专用 skill；只有用户要求端到端推进时才从需求开始连续执行。
 
@@ -11,7 +11,7 @@ description: 当用户要把一个移动 H5、PC 后台或服务端渲染前端�
 
 当用户已经给出目标仓库、分支或明确需求，并希望尽快开始开发时，默认走 [fast-lane.md](references/fast-lane.md)，不要机械拆成八份文档：
 
-1. 先读 [project-profile.md](references/project-profile.md)，再读 `01-frontend-tech-design.md`、`workflow-state.yaml` 和目标目录的同类页面。
+1. 先读 `references/project-profile.local.md`；不存在时读 [project-profile.md](references/project-profile.md) 模板，再读 `01-frontend-tech-design.md`、`workflow-state.yaml` 和目标目录的同类页面。
 2. 需求来源没有变化时复用 `sources/` 快照，不重复抓飞书；只有用户说需求变了或快照缺失时才重新拉取。
 3. 开发前只写一份技术设计；测试完成后写一份测试用例与结果；只有需要后端分析时再写第三份。
 4. 每完成一块只跑相关逻辑或一条主流程；结构稳定后再跑 build，交付前再补完整测试。
@@ -25,18 +25,18 @@ description: 当用户要把一个移动 H5、PC 后台或服务端渲染前端�
 | --- | --- | --- |
 | `mobile-h5` | Vue + Vant 移动 H5 | `src/pages`、`src/router/routes` |
 | `desktop-admin` | React + antd PC 后台 | `src/pages`、`src/components/CommonFormTable` |
-| `servicer-ssr` | KSSR 服务端渲染 H5 | `src/actions`、`src/views-react` |
+| `servicer-ssr` | SSR 服务端渲染 H5 | `src/actions`、`src/views-react` |
 
-先读 [project-profile.md](references/project-profile.md)，再用目录和 `package.json` 确认角色。读不到目标仓库时先要求用户提供路径，不要改到同名目录。
+先读 `references/project-profile.local.md`；不存在时读 [project-profile.md](references/project-profile.md) 模板，再用目录和 `package.json` 确认角色。读不到目标仓库时先要求用户提供路径，不要改到同名目录。
 
 ## 阶段与专用 Skill
 
 | 阶段 | 使用 | 进入条件 | 产物 |
 | --- | --- | --- | --- |
-| 需求与技术设计 | `iot-requirement-design` | 有飞书需求或需求说明 | `01-frontend-tech-design.md` |
-| 前端开发 | `iot-frontend-delivery` | 技术设计已确认 | 页面代码、`01-frontend-tech-design.md` 的实现记录 |
-| 页面测试 | `iot-e2e-delivery` | 页面已实现且可访问 | `02-test-cases-results.md` |
-| 联调/后端分析 | `iot-api-integration` | 有接口文档或后端分支 | 可选 `03-backend-business.md` |
+| 需求与技术设计 | `frontend-requirement-design` | 有飞书需求或需求说明 | `01-frontend-tech-design.md` |
+| 前端开发 | `frontend-page-delivery` | 技术设计已确认 | 页面代码、`01-frontend-tech-design.md` 的实现记录 |
+| 页面测试 | `frontend-e2e-delivery` | 页面已实现且可访问 | `02-test-cases-results.md` |
+| 联调/后端分析 | `frontend-api-integration` | 有接口文档或后端分支 | 可选 `03-backend-business.md` |
 
 若对应 skill 未安装，先提示用户安装；本 skill 只负责编排，不替代阶段规则。不要凭记忆编造项目结构。
 
@@ -110,7 +110,7 @@ python3 scripts/publish_feishu.py \
 
 不传 `--parent-token` 时使用 `lark-cli` 的默认位置。创建是写操作，必须先确认标题和目录；更新已有文档使用 `--doc` + `--command append`，不要静默覆盖。发布成功后把 folder token 和文档 URL 写进 `workflow-state.yaml` 的 `feishu`。
 
-飞书授权、scope 和 keychain 排障见 `iot-requirement-design/references/feishu-intake.md`；不要在沙箱里重试 `lark-cli`。
+飞书授权、scope 和 keychain 排障见 `frontend-requirement-design/references/feishu-intake.md`；不要在沙箱里重试 `lark-cli`。
 
 ## 阶段门禁
 
@@ -126,7 +126,7 @@ python3 scripts/publish_feishu.py \
 ### 前端开发
 
 - 先读 `01-frontend-tech-design.md` 和已有实现，再写代码。
-- 使用 `iot-frontend-conventions`；不同角色的格式和组件库不能混。
+- 使用 `frontend-conventions`；不同角色的格式和组件库不能混。
 - 页面完成后至少跑项目已有的 lint/build，不通过不得进入测试。
 - 把实际改动、未完成项和验证结果补进 `01-frontend-tech-design.md` 的“实现记录”。
 
@@ -135,7 +135,7 @@ python3 scripts/publish_feishu.py \
 - 先生成可追溯的用例，再执行；不能只跑一次手工操作就写“测试通过”。
 - 测试结果必须有真实页面、真实请求或真实截图支撑。
 - 用例、预期、实际结果、阻塞和构建结论统一写入 `02-test-cases-results.md`。
-- 失败项回到 `iot-frontend-delivery` 修，不在测试 skill 里顺手改业务代码。
+- 失败项回到 `frontend-page-delivery` 修，不在测试 skill 里顺手改业务代码。
 
 ### 联调
 
@@ -176,7 +176,7 @@ project_context + project_profile
 
 ### 只做后端业务分析
 
-使用 `iot-api-integration` 的 `business-doc` 模式；先记录仓库、分支和提交，再沿调用链产出文档。
+使用 `frontend-api-integration` 的 `business-doc` 模式；先记录仓库、分支和提交，再沿调用链产出文档。
 
 ## 硬约束
 
@@ -188,6 +188,6 @@ project_context + project_profile
 - 不把设计文档中的待确认接口当成已确认契约。
 - 不在用户未确认时批量安装测试依赖、修改后端或提交代码。
 - 不默认生成和重读完整八份文档；默认只维护三份精简产物。
-- 不重复扫描已经记录在 `project-profile.md` 且未变化的项目事实。
+- 不重复扫描已经记录在 `project-profile.local.md` 或模板中且未变化的项目事实。
 
 产物命名、来源快照和交付检查见 [artifact-contract.md](references/artifact-contract.md)。

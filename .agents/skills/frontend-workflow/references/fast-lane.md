@@ -29,7 +29,7 @@ python3 scripts/project_context.py \
 
 再读：
 
-1. `references/project-profile.md`
+1. `references/project-profile.local.md`（不存在时读 `project-profile.md` 模板）
 2. `docs/<feature>/01-frontend-tech-design.md`（如果已存在）
 3. 目标目录最近的一个同类页面
 4. 只与当前需求相关的 API、路由和样式文件
@@ -70,7 +70,7 @@ python3 scripts/project_context.py \
 
 ## 第 3 步：分层验证
 
-测试前先读 `project-profile.md` 的测试入口、登录态和 mock 开关；登录态拿不到时写阻塞，不要跳过 PC 或门店入口。
+测试前先读 `project-profile.local.md` 的测试入口、登录态和 mock 开关；不存在时读模板。登录态拿不到时写阻塞，不要跳过核心入口。
 
 每次稳定一小块：
 

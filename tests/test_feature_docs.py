@@ -10,7 +10,7 @@ SCRIPT = (
     Path(__file__).parents[1]
     / ".agents"
     / "skills"
-    / "iot-feature-workflow"
+    / "frontend-workflow"
     / "scripts"
     / "feature_docs.py"
 )

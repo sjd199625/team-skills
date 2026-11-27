@@ -115,7 +115,7 @@ def template_01(title: str) -> str:
 - 登录：
 - 页面权限：
 - App Bridge：
-- 门店/矩阵差异：
+- 业务差异：
 
 ## 实现记录
 
@@ -218,7 +218,7 @@ Controller -> Service -> Logic -> DAO/Mapper -> Table/Redis/MQ/RPC
 ## 权限、租户和异步
 
 - 权限：
-- 租户/门店：
+- 租户/角色：
 - MQ/Redis/RPC：
 - 定时任务/第三方 API：
 

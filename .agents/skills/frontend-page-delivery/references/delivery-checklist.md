@@ -4,7 +4,7 @@
 
 - [ ] 已读 `01-frontend-tech-design.md`
 - [ ] 已读与当前改动直接相关的来源快照
-- [ ] 已读 `iot-frontend-conventions`
+- [ ] 已读 `frontend-conventions`
 - [ ] 已找到同类页面和页面内组件
 - [ ] 已确认项目、分支和工作区状态
 - [ ] 已把页面/路由/组件映射到真实文件

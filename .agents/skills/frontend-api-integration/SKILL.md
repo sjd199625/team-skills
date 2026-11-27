@@ -1,5 +1,5 @@
 ---
-name: iot-api-integration
+name: frontend-api-integration
 description: 当用户说“和后端联调”“读这个后端分支”“看接口文档”“梳理后端逻辑和数据来源”“接口对齐”时使用；与后端联调时，读取接口文档或后端分支，生成接口契约、字段映射和后端业务/数据来源文档，并完成前端 API 接入；默认只读后端。
 ---
 
@@ -90,13 +90,13 @@ Controller
 
 ## 前端接入
 
-- 不同前端角色的请求解包方式不同，按 `iot-frontend-conventions` 处理；
+- 不同前端角色的请求解包方式不同，按 `frontend-conventions` 处理；
 - 接口路径放在项目 API 文件，不写死在页面；
 - 新增字段先补类型和兜底，再改展示；
 - 后端只读；除非用户明确要求，否则不改后端代码；
 - 接口不一致时先记录，不静默改字段名。
 
-完成后交给 `iot-e2e-delivery` 重跑页面测试，并把结果写进 `02-test-cases-results.md`。
+完成后交给 `frontend-e2e-delivery` 重跑页面测试，并把结果写进 `02-test-cases-results.md`。
 
 ## 硬约束
 
