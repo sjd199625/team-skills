@@ -69,5 +69,53 @@ class GateTests(unittest.TestCase):
         self.run_gate("test", {"design_confirmed": True, "build_passed": True})
 
 
+class CheckTests(unittest.TestCase):
+    def run_check(self, phase, artifacts, state_text):
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            feature_dir = repo / "docs" / "demo"
+            feature_dir.mkdir(parents=True)
+            (feature_dir / "workflow-state.yaml").write_text(state_text, encoding="utf-8")
+            for name, text in artifacts.items():
+                (feature_dir / name).write_text(text, encoding="utf-8")
+            args = SimpleNamespace(repo=str(repo), feature="demo", phase=phase)
+            feature_docs.cmd_check(args)
+
+    def state(self, frontend_branch="main", frontend_pc=None):
+        return feature_docs.state_yaml(
+            "demo",
+            {"path": "/tmp/h5", "branch": frontend_branch, "commit": "abc"},
+            {"path": "", "branch": "", "commit": ""},
+            frontend_pc,
+        )
+
+    def test_check_passes(self):
+        self.run_check("design", {"01-frontend-tech-design.md": "设计内容"}, self.state())
+
+    def test_check_rejects_placeholder(self):
+        with self.assertRaises(SystemExit):
+            self.run_check("design", {"01-frontend-tech-design.md": "设计 TBD"}, self.state())
+
+    def test_check_rejects_empty_file(self):
+        with self.assertRaises(SystemExit):
+            self.run_check("design", {"01-frontend-tech-design.md": "  "}, self.state())
+
+    def test_check_rejects_missing_frontend_branch(self):
+        with self.assertRaises(SystemExit):
+            self.run_check(
+                "design",
+                {"01-frontend-tech-design.md": "设计内容"},
+                self.state(frontend_branch=""),
+            )
+
+    def test_check_rejects_pc_path_without_branch(self):
+        with self.assertRaises(SystemExit):
+            self.run_check(
+                "design",
+                {"01-frontend-tech-design.md": "设计内容"},
+                self.state(frontend_pc={"path": "/tmp/pc", "branch": "", "commit": ""}),
+            )
+
+
 if __name__ == "__main__":
     unittest.main()

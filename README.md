@@ -72,6 +72,14 @@ python3 .agents/skills/frontend-api-integration/scripts/record_branches.py \
 
 这些脚本只做确定性操作，不会自动安装依赖、执行构建或修改业务代码。
 
+## 运行测试
+
+```bash
+python3 -m unittest discover -s tests -v
+```
+
+测试覆盖 `feature_docs.py` 的状态、门禁和占位符检查，以及 `project_context.py` 的本地画像优先逻辑。它不能替代目标项目的构建和页面测试；GitHub Actions 会在 push 和 pull request 时自动运行。
+
 ## 用 npx 安装
 
 需要 Node.js >= 22.20。
