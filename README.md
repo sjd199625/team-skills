@@ -74,11 +74,13 @@ python3 .agents/skills/frontend-api-integration/scripts/record_branches.py \
 
 ## 运行测试
 
+需要 Python 3.9+（脚本用到 `list[...]` 注解和 `Path.is_relative_to`）：
+
 ```bash
 python3 -m unittest discover -s tests -v
 ```
 
-测试覆盖 `feature_docs.py` 的状态、门禁和占位符检查，以及 `project_context.py` 的本地画像优先逻辑。它不能替代目标项目的构建和页面测试；GitHub Actions 会在 push 和 pull request 时自动运行。
+测试覆盖 `feature_docs.py` 的状态、门禁和占位符检查，以及 `project_context.py` 的本地画像优先与相关文件匹配逻辑。它不能替代目标项目的构建和页面测试；GitHub Actions 会在 push 和 pull request 时用 Python 3.9 / 3.11 自动运行。
 
 ## 用 npx 安装
 

@@ -47,7 +47,8 @@ def find_feature_files(repo: Path, feature: str, limit: int) -> list[Path]:
             if not path.is_file() or path.suffix not in {".ts", ".tsx", ".vue", ".less", ".md", ".yaml", ".yml"}:
                 continue
             relative = str(path.relative_to(repo))
-            if any(token in relative.lower() for token in tokens) or (repo / "docs" / feature) in path.parents:
+            # tokens 由 feature 名派生，docs/<feature>/ 下的路径必然已命中 token，无需再判断父目录
+            if any(token in relative.lower() for token in tokens):
                 matches.append(path)
     return sorted(matches, key=lambda path: str(path))[:limit]
 

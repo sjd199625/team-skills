@@ -31,9 +31,10 @@ class ProfileReferenceTests(unittest.TestCase):
         )
         return repo
 
-    def run_context(self, skill_dir, repo):
+    def run_context(self, skill_dir, repo, *extra):
+        argv = ["project_context.py", "--repo", str(repo), *extra]
         with patch.object(project_context, "SKILL_DIR", skill_dir):
-            with patch.object(sys, "argv", ["project_context.py", "--repo", str(repo)]):
+            with patch.object(sys, "argv", argv):
                 output = io.StringIO()
                 with patch("sys.stdout", output):
                     project_context.main()
@@ -58,6 +59,36 @@ class ProfileReferenceTests(unittest.TestCase):
             output = self.run_context(root / "skill", self.make_repo(root))
         self.assertIn("references/project-profile.md", output)
         self.assertNotIn("project-profile.local.md", output)
+
+    def test_feature_files_match_token(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            references = root / "skill" / "references"
+            references.mkdir(parents=True)
+            (references / "project-profile.md").write_text("template", encoding="utf-8")
+            repo = self.make_repo(root)
+            (repo / "src" / "KeyBox").mkdir(parents=True)
+            (repo / "src" / "KeyBox" / "KeyList.tsx").write_text("", encoding="utf-8")
+            (repo / "src" / "Store").mkdir(parents=True)
+            (repo / "src" / "Store" / "StoreList.tsx").write_text("", encoding="utf-8")
+            (repo / "docs" / "key-box").mkdir(parents=True)
+            (repo / "docs" / "key-box" / "01-frontend-tech-design.md").write_text("", encoding="utf-8")
+            output = self.run_context(root / "skill", repo, "--feature", "key-box")
+        self.assertIn("feature_dir: present", output)
+        self.assertIn("src/KeyBox/KeyList.tsx", output)
+        self.assertNotIn("StoreList.tsx", output)
+
+    def test_missing_feature_dir_is_reported(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            references = root / "skill" / "references"
+            references.mkdir(parents=True)
+            (references / "project-profile.md").write_text("template", encoding="utf-8")
+            output = self.run_context(root / "skill", self.make_repo(root), "--feature", "absent")
+        self.assertIn("feature_dir: missing", output)
+        self.assertIn("feature_files:", output)
+        self.assertIn("  -", output)
+        self.assertNotIn("KeyList", output)
 
 
 if __name__ == "__main__":
